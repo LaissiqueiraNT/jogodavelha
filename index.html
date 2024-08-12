@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da velha</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jogo-da-velha">
+            <div id="placarr">
+                <h1 style="color: #fff;font-size: 50px;">X</h1>
+                <span id="pontoX">0</span>
+         
+                <span id="pontoO">0</span>
+                <h1 style="color: #fff; font-size: 50px;">O</h1>
+            </div>
+            
+            <div class="justify">
+                <button onclick="simbolo(this)" id="0" class="botao"></button>
+                <button onclick="simbolo(this)" id="1" class="botao"></button>
+                <button onclick="simbolo(this)" id="2" class="botao"></button>
+            </div>
+            <div class="justify">
+                <button onclick="simbolo(this)" id="3" class="botao"></button>
+                <button onclick="simbolo(this)" id="4" class="botao"></button>
+                <button onclick="simbolo(this)" id="5" class="botao"></button>
+            </div>
+            <div class="justify">
+                <button onclick="simbolo(this)" id="6" class="botao"></button>
+                <button onclick="simbolo(this)" id="7" class="botao"></button>
+                <button onclick="simbolo(this)" id="8" class="botao"></button>
+            </div>
+            <div id="cleanbutton">
+<button onclick="LimparJogo()" id="limpar">Limpar jogo</button>
+</div>
+        </div>
+        
+    </div>
+    
+    <script>
+        let X = "X";
+        function simbolo(button) {
+            
+            if (button.innerText == "") {
+                button.innerText = X;
+                let vencer = verificaVencedor()
+            if(vencer){
+                alert(vencer + 'Venceu!')
+                atualizarPlacar(vencer)
+                LimparJogo()
+            } else{
+                X = X == "X" ? "O" : "X";
+            }
+        }
+        }
+        function verificaVencedor(){
+           const vencedor = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6],
+            ]; 
+            for(let i = 0 ;i < vencedor.length; i++){
+                const [a,b,c] = vencedor[i]
+                if(document.getElementById(a).innerText && document.getElementById(a).innerText === document.getElementById(b).innerText && document.getElementById(a).innerText === document.getElementById(c).innerText){
+                    return document.getElementById(a).innerText
+                } 
+            }
+            return null
+        }
+        
+        function atualizarPlacar(vencedor) {
+            let placarX = document.getElementById('pontoX');
+            let placarO = document.getElementById('pontoO');
+            if (vencedor === "X") {
+                placarX.innerText = Number(placarX.innerText) + 1;
+            } else if (vencedor === "O") {
+                placarO.innerText = Number(placarO.innerText) + 1;
+            }
+        }
+function LimparJogo(){
+    for (let p = 0; p < 9; p++) {
+                document.getElementById(p).innerText = "";
+            }
+            
+            X = "X";
+        }
+    </script>
+</body>
+
+</html>
